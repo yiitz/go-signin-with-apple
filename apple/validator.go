@@ -58,6 +58,16 @@ func NewWithURL(url string) *Client {
 	return client
 }
 
+func NewWithConfig(url string, timeout time.Duration) *Client {
+	client := &Client{
+		validationURL: url,
+		client: &http.Client{
+			Timeout: timeout,
+		},
+	}
+	return client
+}
+
 // VerifyWebToken sends the WebValidationTokenRequest and gets validation result
 func (c *Client) VerifyWebToken(ctx context.Context, reqBody WebValidationTokenRequest, result interface{}) error {
 	data := url.Values{}
